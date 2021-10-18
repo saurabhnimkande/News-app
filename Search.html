@@ -5,8 +5,104 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
+<style>
+    * {
+        font-family: 'Montserrat', sans-serif;
+    }
+    #display_news > div {
+          height: 400px;
+          width: 700px;
+          border: 1px solid #dedede;
+          border-radius: 10px;
+          padding:10px;
+          margin: auto;
+          margin-bottom: 20px;
+          text-align: center;
+
+      }
+      #display_news > div:hover {
+          background-color:#f0f0f0;
+          cursor: pointer;
+      }
+      #display_news > div > img {
+          width: 300px;
+          height: 150px;
+      }
+</style>
 <body>
-    
+    <div id="display_news"></div>
 </body>
+<script>
+    async function get_top_news(value) {
+      let res = await fetch(`https://newsapi.org/v2/everything?q=${value}&pageSize=20&apiKey=00894624a7074153bc033e5d48e2c703`);
+      let data= await res.json();
+      console.log(data.articles);
+      display_news(data.articles);
+    }
+
+    let data=JSON.parse(localStorage.getItem("topic"));
+    console.log(data.topic)
+    get_top_news(data.topic);
+
+    function display_news(object) {
+
+        object.forEach((el) => {
+
+            let parent_div=document.getElementById("display_news");
+
+            let div=document.createElement("div");
+
+                div.onclick=() => {
+                    if(localStorage.getItem("news_details")==null) {
+                        localStorage.setItem("news_details",JSON.stringify({}));
+                    }
+
+                    let newdata=JSON.parse(localStorage.getItem("news_details"));
+
+                    newdata.image=el.urlToImage;
+                    newdata.title=el.title
+                    newdata.description=el.description;
+                    newdata.date=el.publishedAt;
+                    newdata.author=el.author;
+                    newdata.source=el.source.name;
+                    newdata.url=el.url;
+                    newdata.content=el.content;
+
+                    let one=JSON.stringify(newdata);
+                    localStorage.setItem("news_details", one);
+
+                    window.location.href="News.html";
+
+                }
+
+            let img=document.createElement("img");
+            img.src=el.urlToImage;
+
+            let title=document.createElement("h4");
+            title.innerText=el.title;
+
+            let author=document.createElement("p");
+            if(el.author==null) {
+                author.innerText="Not Available";
+            } else {
+                author.innerText=el.author;
+            }
+
+            let description=document.createElement("p");
+            description.innerText=el.description;
+
+
+            div.append(img,title,author,description);
+
+            parent_div.append(div);
+
+
+        })
+
+    }
+</script>
 </html>

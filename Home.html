@@ -51,8 +51,8 @@
   <body>
     <div>
       <div id="left_div">
-          <input type="text" id="search_value" placeholder="Search News" oninput="debounce(main,1000)">
-          <button>Search</button>
+          <input type="text" id="search_value" placeholder="Search News">
+          <button onclick="search_news()">Search</button>
       </div>
       <div id="display_news"></div>
     </div>
@@ -123,6 +123,32 @@
         })
 
     }
+
+
+
+    let search_news=() => {
+
+        let news_topic=document.getElementById("search_value").value;
+
+        alert(news_topic);
+        if(localStorage.getItem("topic")==null) {
+            localStorage.setItem("topic",JSON.stringify({}));
+          }
+
+
+          let newdata=JSON.parse(localStorage.getItem("topic"));
+          newdata.topic=news_topic;
+
+          let one=JSON.stringify(newdata);
+          localStorage.setItem("topic", one);
+
+          window.location.href="Search.html";
+
+
+
+
+    }
+
 
 
   </script>
