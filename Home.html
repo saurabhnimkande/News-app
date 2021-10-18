@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>The Global News</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -12,12 +12,27 @@
   <style>
       * {
         font-family: 'Montserrat', sans-serif;
+        margin: 0px;
+    }
+    #main_container {
+        display: flex;
+
+    }
+    #main_container > div:nth-child(1) {
+        flex-basis: 300px;
+    }
+    #main_container > div:nth-child(2) {
+        flex-basis: 700px;
+        padding-top: 30px;
     }
       #display_news > div {
+          text-align: center;
           height: 450px;
           width: 700px;
           border: 1px solid #dedede;
+          border-radius: 10px;
           padding:10px;
+          margin-left: 100px;
           margin-bottom: 20px;
 
       }
@@ -30,9 +45,9 @@
           height: 150px;
       }
       #left_div {
-          background-color:red;
+        background-color:#f0f0f0;
           width: 300px;
-          height: 700px;
+          height: 800px;
       }
       #search_value {
           width: 250px;
@@ -41,25 +56,48 @@
           padding-left: 5px;
           margin-top: 10px;
       }
-      #left_div > button {
-          height: 25px;
-          width:200px;
-          margin-left:50px;
 
+      #search_main {
+        height: 25px;
+        width:200px;
+        margin-left:50px;
+
+      }
+      #button_rest {
+          margin-top:20px;
+      }
+      #button_rest > button {
+          background-color:#d0d0d0;
+          border:1px solid #c4c4c4;
+          width: 300px;
+          height:50px;
+          font-size: 16px;
+      }
+      #button_rest > button:hover {
+          background-color:#e2e2e2;
       }
   </style>
   <body>
-    <div>
+    <div id="main_container">
       <div id="left_div">
           <input type="text" id="search_value" placeholder="Search News">
-          <button onclick="search_news()">Search</button>
+          <button onclick="search_news()" id="search_main">Search</button>
+          <div id="button_rest">
+          <button onclick="search_news1()" id="Sports">Sports</button>
+          <button onclick="search_news2()" id="Technology">Technology</button>
+          <button onclick="search_news3()" id="Cryptocurrency">Cryptocurrency</button>
+          <button onclick="search_news4()" id="Covid">Covid</button>
+          <button onclick="search_news5()" id="Agriculture">Agriculture</button>
+          <button onclick="search_news6()" id="Entertainment">Entertainment</button>
+          <button onclick="search_news7()" id="Finance">Finance</button>
+        </div>
       </div>
       <div id="display_news"></div>
     </div>
   </body>
   <script>
     async function get_top_news() {
-      let res = await fetch(`https://newsapi.org/v2/everything?q=trending&from=2021-10-18&sortBy=popularity&apiKey=#00894624a7074153bc033e5d48e2c703`);
+      let res = await fetch(`https://newsapi.org/v2/everything?q=trending&from=2021-10-18&sortBy=popularity&apiKey=00894624a7074153bc033e5d48e2c703`);
       let data= await res.json();
       console.log(data.articles);
       display_news(data.articles);
@@ -130,7 +168,6 @@
 
         let news_topic=document.getElementById("search_value").value;
 
-        alert(news_topic);
         if(localStorage.getItem("topic")==null) {
             localStorage.setItem("topic",JSON.stringify({}));
           }
@@ -150,6 +187,112 @@
     }
 
 
+    
+
+    let search_news1=() => {
+    if(localStorage.getItem("topic")==null) {
+    localStorage.setItem("topic",JSON.stringify({}));
+    }
+
+    let newdata=JSON.parse(localStorage.getItem("topic"));
+    newdata.topic="Sports";
+
+    let one=JSON.stringify(newdata);
+    localStorage.setItem("topic", one);
+
+    window.location.href="Search.html";
+
+    }
+
+    let search_news2=() => {
+    if(localStorage.getItem("topic")==null) {
+    localStorage.setItem("topic",JSON.stringify({}));
+    }
+
+    let newdata=JSON.parse(localStorage.getItem("topic"));
+    newdata.topic="Technology";
+
+    let one=JSON.stringify(newdata);
+    localStorage.setItem("topic", one);
+
+    window.location.href="Search.html";
+
+    }
+
+    let search_news3=() => {
+    if(localStorage.getItem("topic")==null) {
+    localStorage.setItem("topic",JSON.stringify({}));
+    }
+
+    let newdata=JSON.parse(localStorage.getItem("topic"));
+    newdata.topic="Cryptocurrency";
+
+    let one=JSON.stringify(newdata);
+    localStorage.setItem("topic", one);
+
+    window.location.href="Search.html";
+
+    }
+
+    let search_news4=() => {
+    if(localStorage.getItem("topic")==null) {
+    localStorage.setItem("topic",JSON.stringify({}));
+    }
+
+    let newdata=JSON.parse(localStorage.getItem("topic"));
+    newdata.topic="Covid";
+
+    let one=JSON.stringify(newdata);
+    localStorage.setItem("topic", one);
+
+    window.location.href="Search.html";
+
+    }
+
+    let search_news5=() => {
+    if(localStorage.getItem("topic")==null) {
+    localStorage.setItem("topic",JSON.stringify({}));
+    }
+
+    let newdata=JSON.parse(localStorage.getItem("topic"));
+    newdata.topic="Agriculture";
+
+    let one=JSON.stringify(newdata);
+    localStorage.setItem("topic", one);
+
+    window.location.href="Search.html";
+
+    }
+
+    let search_news6=() => {
+    if(localStorage.getItem("topic")==null) {
+    localStorage.setItem("topic",JSON.stringify({}));
+    }
+
+    let newdata=JSON.parse(localStorage.getItem("topic"));
+    newdata.topic="Entertainment";
+
+    let one=JSON.stringify(newdata);
+    localStorage.setItem("topic", one);
+
+    window.location.href="Search.html";
+
+    }
+
+    let search_news7=() => {
+    if(localStorage.getItem("topic")==null) {
+    localStorage.setItem("topic",JSON.stringify({}));
+    }
+
+    let newdata=JSON.parse(localStorage.getItem("topic"));
+    newdata.topic="Finance";
+
+    let one=JSON.stringify(newdata);
+    localStorage.setItem("topic", one);
+
+    window.location.href="Search.html";
+
+    }
 
   </script>
 </html>
